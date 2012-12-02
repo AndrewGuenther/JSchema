@@ -1,8 +1,8 @@
-function Schema(schema) {
+function JSchema(schema) {
    this.schema = schema;
 };
 
-Schema.isIn = function(arr) {
+JSchema.isIn = function(arr) {
    return function(val) {
       var found = false;
 
@@ -16,7 +16,7 @@ Schema.isIn = function(arr) {
    };
 };
 
-Schema.validate = function validate(schema, obj) {
+JSchema.validate = function validate(schema, obj) {
    if (!("_type" in schema)) {
       throw "Schema type is not present"
    }
@@ -124,6 +124,6 @@ Schema.validate = function validate(schema, obj) {
    }
 }
 
-Schema.prototype.validate = function(obj) {
-   return Schema.validate(this.schema, obj);
+JSchema.prototype.validate = function(obj) {
+   return JSchema.validate(this.schema, obj);
 };
