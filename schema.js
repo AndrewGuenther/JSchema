@@ -100,7 +100,7 @@ JSchema.validate = function validate(schema, obj) {
    // If the schema is set to strict, ensure that no extra keys are present in the object
    if (schema._strict) {
       for (att in obj) {
-         if (!schema.att) {
+         if (!schema[att]) {
             throw "Attribute " + att + " is not present in the schema!";
          }
       }
