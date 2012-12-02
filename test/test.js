@@ -1,6 +1,6 @@
-//s = Schema(schema)
+var s = new Schema(schema)
 
 tests.forEach(function(elem) {
-   validate(schema, elem);
+   s.validate(elem);
 });
 
