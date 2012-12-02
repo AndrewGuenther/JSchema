@@ -4,13 +4,13 @@ var ref = {
    "_singular": false
 };
 var time = {
-   "_type": "string",
-   "_validate": Schema.date("hh:mm:ss?.fs?")
+   "_type": "string"//,
+//   "_validate": Schema.date("hh:mm:ss?.fs?")
 };
 
 var date = {
-   "_type": "string",
-   "_validate": Schema.date("dd mon yyyy")
+   "_type": "string"//,
+//   "_validate": Schema.date("dd mon yyyy")
 };
 
 var chan = {
@@ -31,7 +31,6 @@ var chan = {
 
 var individual = {
    "_type": "object",
-   "_required": true,
 
    "RESN": {
       "_type": "string",
@@ -67,3 +66,21 @@ var individual = {
       "_singular": true
    }
 };
+
+var schema = {
+   "_type": individual,
+   "_required": true,
+   "_singular": true
+};
+
+var tests = [{
+   "RESN": "locked",
+   "SEX": "M",
+   "CHAN": {
+      "DATE": "today",
+      "TIME": "right now"
+   }
+},
+{
+   "SEX": "fdsa"
+}];
