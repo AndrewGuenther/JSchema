@@ -2,6 +2,14 @@ function JSchema(schema) {
    this.schema = schema;
 };
 
+JSchema.JSchemaError = function(message) {
+   this.name = "JSchemaError";
+   this.message = message || "JSchema has encountered an error";
+}
+
+JSchema.JSchemaError.prototype = new Error();
+JSchema.JSchemaError.prototype.constructor = JSchema.JSchemaError;
+
 JSchema.isIn = function(arr) {
    return function(val) {
       var found = false;
@@ -22,7 +30,7 @@ JSchema.prototype._validate = function _validate(schema, obj) {
 //   print(JSON.stringify(obj))
 
    if (!("_type" in schema)) {
-      throw "Schema type is not present"
+      throw new JSchema.JSchemaError("Schema type is not present");
    }
 
    // If the item type is "undef" then ignore it
@@ -33,7 +41,7 @@ JSchema.prototype._validate = function _validate(schema, obj) {
    // If the item is an array, iterate over it and validate each element
    if ("_singular" in schema && schema._singular == false) {
       if (!Array.isArray(obj)) {
-         throw "" + obj + " is not an array";
+         throw new JSchema.JSchemaError(JSON.stringify(obj) + " is not an array");
       }
 
       schema._singular = true;
@@ -47,12 +55,12 @@ JSchema.prototype._validate = function _validate(schema, obj) {
    // Validate number
    if (schema._type == "number") {
       if (typeof obj != "number") {
-         throw "" + obj + " is not of type number!";
+         throw new JSchema.JSchemaError(JSON.stringify(obj) + " is not of type number!");
       }
 
       if (schema._validate) {
          if (!schema._validate(obj)) {
-            throw "" + obj + " is invalid for field";
+            throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
          }
       }
 
@@ -62,12 +70,12 @@ JSchema.prototype._validate = function _validate(schema, obj) {
    // Validate boolean
    if (schema._type == "boolean") {
       if (typeof obj != "boolean") {
-         throw "" + obj + " is not of type boolean!";
+         throw new JSchema.JSchemaError(JSON.stringify(obj) + " is not of type boolean!");
       }
 
       if (schema._validate) {
          if (!schema._validate(obj)) {
-            throw "" + obj + " is invalid for field";
+            throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
          }
       }
  
@@ -77,12 +85,12 @@ JSchema.prototype._validate = function _validate(schema, obj) {
    // Validate string
    if (schema._type == "string") {
       if (typeof obj != "string") {
-         throw "" + obj + " is not of type string!";
+         throw new JSchema.JSchemaError(JSON.stringify(obj) + " is not of type string!");
       }
 
       if (schema._validate) {
          if (!schema._validate(obj)) {
-            throw "" + obj + " is invalid for field";
+            throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
          }
       }
  
@@ -95,7 +103,7 @@ JSchema.prototype._validate = function _validate(schema, obj) {
       if (schema._strict) {
          for (att in obj) {
             if (!schema[att]) {
-               throw "Attribute " + att + " is not present in the schema!";
+               throw new JSchema.JSchemaError("Attribute " + att + " is not present in the schema!");
             }
          }
       }
@@ -109,7 +117,7 @@ JSchema.prototype._validate = function _validate(schema, obj) {
 
          // Ensure presence of required attributes
          if (!(att in obj) && "_required" in schema[att] && schema[att]._required) {
-            throw "Required attribute " + att + " not present";
+            throw new JSchema.JSchemaError("Required attribute " + att + " not present");
          }
 
          if (att in obj) {
@@ -139,7 +147,7 @@ JSchema.validate = function (schema, obj, type) {
 
 JSchema.prototype.validate = function(obj, type) {
    if (!(type in schema)) {
-      throw "Type " + type + " is not supported by the schema."
+      throw JSchema.JSchemaError("Type " + type + " is not supported by the schema.");
    }
 
    this._validate(schema[type], obj);
