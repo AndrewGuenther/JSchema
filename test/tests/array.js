@@ -8,6 +8,7 @@ var schema = {
 }
 
 var tests = [{
+   "name": "Valid Array",
    "data": ["a", "b"],
    "type": "arr"
 }]

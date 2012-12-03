@@ -76,6 +76,7 @@ var schema = {
 };
 
 var tests = [{
+   "name": "Valid individual",
    "data": {
       "RESN": "locked",
       "SEX": "M",
@@ -87,6 +88,8 @@ var tests = [{
    "type": "individual"
 },
 {
+   "name": "Invalid individual",
+   "fail": true,
    "data": {
       "SEX": "fdsa"
    },

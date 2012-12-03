@@ -12,10 +12,13 @@ var schema = {
 }
 
 var tests = [{
+   "name": "Valid subtype",
    "data": "a",
    "type": "sub"
 },
 {
+   "name": "Invalid subtype",
+   "fail": true,
    "data": false,
    "type": "sub"
 }]

@@ -12,10 +12,13 @@ var schema = {
 }
 
 var tests = [{
+   "name": "Valid isCow",
    "data": "cow",
    "type": "cow"
 },
 {
+   "name": "Invalid isCow",
+   "fail": true,
    "data": "notcow",
    "type": "cow"
 }]

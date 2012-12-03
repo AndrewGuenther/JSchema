@@ -8,10 +8,13 @@ var schema = {
 }
 
 var tests = [{
+   "name": "Valid isIn",
    "data": 1,
    "type": "isin"
 },
 {
+   "name": "Invalid isIn",
+   "fail": true,
    "data": 3,
    "type": "isin"
 }]
