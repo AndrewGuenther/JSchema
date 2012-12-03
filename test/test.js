@@ -10,6 +10,8 @@ tests.forEach(function(elem) {
    } catch (err if err instanceof JSchema.JSchemaError) {
       if ("fail" in elem && elem.fail) {
          success = true;
+      } else {
+         print(err.message);
       }
    } catch (e) {
       print(JSON.stringify(e));
