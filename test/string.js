@@ -1,5 +1,16 @@
-var schema = {
+var string = {
    "_type": "string",
 }
 
-var tests = ["potato", 1]
+var schema = {
+   "string": string
+}
+
+var tests = [{
+   "data": "potato",
+   "type": "string"
+},
+{
+   "data": 1,
+   "type": "string"
+}]

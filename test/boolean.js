@@ -1,5 +1,20 @@
-var schema = {
+var bool = {
    "_type": "boolean"
 }
 
-var tests = [true, false, "potato"]
+var schema = {
+   "bool": bool
+}
+
+var tests = [{
+   "data": true,
+   "type": "bool"
+},
+{
+   "data": false,
+   "type": "bool"
+},
+{
+   "data": "potato",
+   "type": "bool"
+}]

@@ -17,13 +17,13 @@ var chan = {
    "_type": "object",
 
    "DATE": {
-      "_type": date,
+      "_type": "date",
       "_required": true,
       "_singular": true
    },
 
    "TIME": {
-      "_type": time,
+      "_type": "time",
       "_required": false,
       "_singular": true
    }
@@ -35,52 +35,60 @@ var individual = {
    "RESN": {
       "_type": "string",
       "_required": false,
-      "_validate": Schema.isIn(["locked","privacy"])
+      "_validate": JSchema.isIn(["locked","privacy"])
    },
 
    "SEX": {
       "_type": "string",
       "_required": false,
-      "_validate": Schema.isIn(["M", "F"])
+      "_validate": JSchema.isIn(["M", "F"])
    },
 
    "SUBM": {
-      "_type": ref
+      "_type": "ref"
    },
 
    "ALIA": {
-      "_type": ref
+      "_type": "ref"
    },
 
    "ANCI": {
-      "_type": ref
+      "_type": "ref"
    },
 
    "DESI": {
-      "_type": ref
+      "_type": "ref"
    },
 
    "CHAN": {
-      "_type": chan,
+      "_type": "chan",
       "_required": false,
       "_singular": true
    }
 };
 
 var schema = {
-   "_type": individual,
-   "_required": true,
-   "_singular": true
+   "individual": individual,
+   "ref": ref,
+   "date": date,
+   "time": time,
+   "chan": chan
 };
 
 var tests = [{
-   "RESN": "locked",
-   "SEX": "M",
-   "CHAN": {
-      "DATE": "today",
-      "TIME": "right now"
-   }
+   "data": {
+      "RESN": "locked",
+      "SEX": "M",
+      "CHAN": {
+         "DATE": "today",
+         "TIME": "right now"
+      }
+   },
+   "type": "individual"
 },
 {
-   "SEX": "fdsa"
+   "data": {
+      "SEX": "fdsa"
+   },
+   "type": "individual"
 }];

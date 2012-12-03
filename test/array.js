@@ -1,6 +1,13 @@
-var schema = {
+var arr = {
    "_type": "string",
    "_singular": false
 }
 
-var tests = [["a", "b"]]
+var schema = {
+   "arr": arr
+}
+
+var tests = [{
+   "data": ["a", "b"],
+   "type": "arr"
+}]

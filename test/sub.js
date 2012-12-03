@@ -2,8 +2,20 @@ var x = {
    "_type": "string"
 }
 
-var schema = {
-   "_type": x
+var sub = {
+   "_type": "x"
 }
 
-var tests = ["a", "b", false]
+var schema = {
+   "sub": sub,
+   "x": x
+}
+
+var tests = [{
+   "data": "a",
+   "type": "sub"
+},
+{
+   "data": false,
+   "type": "sub"
+}]

@@ -1,6 +1,17 @@
-var schema = {
+var isin = {
    "_type": "number",
-   "_validate": Schema.isIn([1, 2])
+   "_validate": JSchema.isIn([1, 2])
 }
 
-var tests = [1, 2, 3]
+var schema = {
+   "isin": isin
+}
+
+var tests = [{
+   "data": 1,
+   "type": "isin"
+},
+{
+   "data": 3,
+   "type": "isin"
+}]

@@ -16,7 +16,11 @@ JSchema.isIn = function(arr) {
    };
 };
 
-JSchema.validate = function validate(schema, obj) {
+JSchema.prototype._validate = function _validate(schema, obj) {
+//   print("Validate:")
+//   print(JSON.stringify(schema))
+//   print(JSON.stringify(obj))
+
    if (!("_type" in schema)) {
       throw "Schema type is not present"
    }
@@ -34,7 +38,7 @@ JSchema.validate = function validate(schema, obj) {
 
       schema._singular = true;
       obj.forEach(function(elem) {
-         validate(schema, elem);
+         _validate(schema, elem);
       });
 
       return;
@@ -85,45 +89,58 @@ JSchema.validate = function validate(schema, obj) {
       return;
    } 
 
-   // Validate sub-type
-   if (typeof schema._type == "object") {
-      subSchema = schema._type;
-
-      // Pass down all overriding attributes
-      if ("_required" in schema) { subSchema._required = schema._required; }
-      if ("_singular" in schema) { subSchema._singular = schema._singular; }
-      if ("_validate" in schema) { subSchema._validate = schema._validate; }
-
-      validate(subSchema, obj);
-   }
-
-   // If the schema is set to strict, ensure that no extra keys are present in the object
-   if (schema._strict) {
-      for (att in obj) {
-         if (!schema[att]) {
-            throw "Attribute " + att + " is not present in the schema!";
+   // Validate object
+   if (schema._type == "object") {
+      // If the schema is set to strict, ensure that no extra keys are present in the object
+      if (schema._strict) {
+         for (att in obj) {
+            if (!schema[att]) {
+               throw "Attribute " + att + " is not present in the schema!";
+            }
          }
       }
+
+      // Iterate over all attributes and recursively validate them
+      for (att in schema) {
+         // Ignore all attributes starting with an underscore
+         if (att[0] == "_") {
+            continue;
+         }
+
+         // Ensure presence of required attributes
+         if (!(att in obj) && "_required" in schema[att] && schema[att]._required) {
+            throw "Required attribute " + att + " not present";
+         }
+
+         if (att in obj) {
+            _validate(schema[att], obj[att]);
+         }
+      }
+
+      return;
    }
 
-   // Iterate over all attributes and recursively validate them
-   for (att in schema) {
-      // Ignore all attributes starting with an underscore
-      if (att[0] == "_") {
-         continue;
-      }
+   // Validate custom type
+   subSchema = this.schema[schema._type];
 
-      // Ensure presence of required attributes
-      if (!(att in obj) && schema[att]._required) {
-         throw "Required attribute " + att + " not present";
-      }
+   // Pass down all overriding attributes
+   if ("_required" in schema) { subSchema._required = schema._required; }
+   if ("_singular" in schema) { subSchema._singular = schema._singular; }
+   if ("_validate" in schema) { subSchema._validate = schema._validate; }
 
-      if (att in obj) {
-         validate(schema[att], obj[att]);
-      }
+   _validate(subSchema, obj);
+};
+
+JSchema.validate = function (schema, obj, type) {
+   validator = new JSchema(schema);
+
+   validator.validate(obj, type);
+};
+
+JSchema.prototype.validate = function(obj, type) {
+   if (!(type in schema)) {
+      throw "Type " + type + " is not supported by the schema."
    }
-}
 
-JSchema.prototype.validate = function(obj) {
-   return JSchema.validate(this.schema, obj);
+   this._validate(schema[type], obj);
 };

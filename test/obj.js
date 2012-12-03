@@ -1,4 +1,4 @@
-var schema = {
+var obj = {
    "_type": "object",
    
    "a": {
@@ -12,4 +12,19 @@ var schema = {
    }
 }
 
-var tests = [{"a": 0, "b": 1}, {"a": 0}, {"b": 1}]
+var schema = {
+   "obj": obj
+}
+
+var tests = [{
+   "data": {"a": 0, "b": 1},
+   "type": "obj"
+},
+{
+   "data": {"a": 0},
+   "type": "obj"
+},
+{
+   "data": {"b": 1},
+   "type": "obj"
+}]
