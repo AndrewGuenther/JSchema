@@ -2,9 +2,20 @@ function isCow(str) {
    return str == "cow";
 }
 
-var schema = {
+var cow = {
    "_type": "string",
    "_validate": isCow
 }
 
-var tests = ["cow", "notcow"]
+var schema = {
+   "cow": cow
+}
+
+var tests = [{
+   "data": "cow",
+   "type": "cow"
+},
+{
+   "data": "notcow",
+   "type": "cow"
+}]
