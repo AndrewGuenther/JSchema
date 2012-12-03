@@ -32,7 +32,7 @@ JSchema.regex = function(re) {
    };
 };
 
-JSchema.prototype._validate = function _validate(schema, obj) {
+JSchema._validate = function _validate(desc, schema, obj) {
 //   print("Validate:")
 //   print(JSON.stringify(schema))
 //   print(JSON.stringify(obj))
@@ -54,7 +54,7 @@ JSchema.prototype._validate = function _validate(schema, obj) {
 
       schema._singular = true;
       obj.forEach(function(elem) {
-         _validate(schema, elem);
+         _validate(desc, schema, elem);
       });
 
       return;
@@ -129,7 +129,7 @@ JSchema.prototype._validate = function _validate(schema, obj) {
          }
 
          if (att in obj) {
-            _validate(schema[att], obj[att]);
+            _validate(desc, schema[att], obj[att]);
          }
       }
 
@@ -137,26 +137,24 @@ JSchema.prototype._validate = function _validate(schema, obj) {
    }
 
    // Validate custom type
-   subSchema = this.schema[schema._type];
+   subSchema = desc[schema._type];
 
    // Pass down all overriding attributes
    if ("_required" in schema) { subSchema._required = schema._required; }
    if ("_singular" in schema) { subSchema._singular = schema._singular; }
    if ("_validate" in schema) { subSchema._validate = schema._validate; }
 
-   _validate(subSchema, obj);
+   _validate(desc, subSchema, obj);
 };
 
 JSchema.validate = function (schema, obj, type) {
-   validator = new JSchema(schema);
-
-   validator.validate(obj, type);
-};
-
-JSchema.prototype.validate = function(obj, type) {
    if (!(type in schema)) {
       throw JSchema.JSchemaError("Type " + type + " is not supported by the schema.");
    }
 
-   this._validate(schema[type], obj);
+   JSchema._validate(schema, schema[type], obj);
+};
+
+JSchema.prototype.validate = function(obj, type) {
+   JSchema.validate(this.schema, obj, type);
 };
