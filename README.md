@@ -62,7 +62,10 @@ the schema.
 Takes a boolean function. All values are checked against this function for validity.
 
 ##Validation functions
-A series of validation functions have already been defined to help you quickly define your schema
+A series of validation functions have already been defined to help you quickly define your schema.
 
 ###JSchema.isIn(arr):
-Returns a function that tests whether or not the field value is present in arr
+Returns a function that tests whether or not the field value is present in arr.
+
+###JSchema.regex(re):
+Returns a function that checks whether a given field matches a given regex.

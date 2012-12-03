@@ -1,8 +1,37 @@
-var ref = {
-   "_type": "string",
-   "_required": false,
-   "_singular": false
+var name = {
+   "_type": "object",
+   
+   "NAME": {
+      "_type": "string",
+      "_required": true
+   },
+   "GIVN": {
+      "_type": "string",
+   },
+   "NICK": {
+      "_type": "string",
+   },
+   "SPFX": {
+      "_type": "string",
+   },
+   "NSFX": {
+      "_type": "string",
+   }
+}
+
+var xref = {
+   "_type": "object",
+
+   "REF": {
+      "_type": "string",
+      "_validate": JSchema.regex("^.{10}$")
+   },
+
+   "RELN": {
+      "_type": "string"
+   }
 };
+
 var time = {
    "_type": "string"//,
 //   "_validate": Schema.date("hh:mm:ss?.fs?")
@@ -32,6 +61,11 @@ var chan = {
 var individual = {
    "_type": "object",
 
+   "NAME": {
+      "_type": "name",
+      "_required": true
+   },
+
    "RESN": {
       "_type": "string",
       "_required": false,
@@ -44,20 +78,10 @@ var individual = {
       "_validate": JSchema.isIn(["M", "F"])
    },
 
-   "SUBM": {
-      "_type": "ref"
-   },
 
-   "ALIA": {
-      "_type": "ref"
-   },
-
-   "ANCI": {
-      "_type": "ref"
-   },
-
-   "DESI": {
-      "_type": "ref"
+   "ASSOC": {
+      "_type": "xref",
+      "_singular": false
    },
 
    "CHAN": {
@@ -69,7 +93,8 @@ var individual = {
 
 var schema = {
    "individual": individual,
-   "ref": ref,
+   "name": name,
+   "xref": xref,
    "date": date,
    "time": time,
    "chan": chan
@@ -78,12 +103,19 @@ var schema = {
 var tests = [{
    "name": "Valid individual",
    "data": {
+      "NAME": {
+         "NAME": "Andrew Guenther"
+      },
       "RESN": "locked",
       "SEX": "M",
       "CHAN": {
          "DATE": "today",
          "TIME": "right now"
-      }
+      },
+      "ASSOC": [{
+         "REF": "0123456789",
+         "RELN": "father"
+      }]
    },
    "type": "individual"
 },

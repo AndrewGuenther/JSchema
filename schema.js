@@ -24,6 +24,14 @@ JSchema.isIn = function(arr) {
    };
 };
 
+JSchema.regex = function(re) {
+   var regex = new RegExp(re);
+
+   return function(val) {
+      return regex.test(val);
+   };
+};
+
 JSchema.prototype._validate = function _validate(schema, obj) {
 //   print("Validate:")
 //   print(JSON.stringify(schema))
