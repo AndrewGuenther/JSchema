@@ -48,7 +48,7 @@ JSchema._validate = function _validate(desc, schema, obj) {
 
    // If the item is an array, iterate over it and validate each element
    if ("_singular" in schema && schema._singular == false) {
-      if (!Array.isArray(obj)) {
+      if (!(obj instanceof Array)) {
          throw new JSchema.JSchemaError(JSON.stringify(obj) + " is not an array");
       }
 
