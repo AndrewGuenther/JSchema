@@ -10,7 +10,7 @@ var person = {
    },
    sex: {
       _type: "string",
-      _validate: Schema.isIn(["M", "F"])
+      _validate: JSchema.isIn(["M", "F"])
    }
 };
 
