@@ -92,6 +92,11 @@ var individual = {
       "_type": "chan",
       "_required": false,
       "_singular": true
+   },
+   
+   "MEDIA": {
+	  "_type": "multimedia",
+	  "_singular": false
    }
 };
 
@@ -112,6 +117,9 @@ var multimedia = {
 		"_type": "fileRef",
 		"_required": true
 	}
+};
+
+var individualAttr = {
 };
 
 var schema = {
