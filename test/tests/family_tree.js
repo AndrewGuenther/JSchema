@@ -76,6 +76,11 @@ var individual = {
       "_required": false,
       "_validate": JSchema.isIn(["locked","privacy"])
    },
+   
+   "INDATT": {
+	  "_type": "individualAttr",
+	  "_singular": false
+   }
 
    "SEX": {
       "_type": "string",
@@ -120,11 +125,38 @@ var multimedia = {
 };
 
 var individualAttr = {
+	"_type": "object",
+	
+	//TODO: this is supposed to be an array of things where 1 or more is required
+	
+	"ATTR": {
+		"_type": "string",
+		"_required": true
+		"_validate": JSchema.isIn([
+			"CAST", 
+			"DSCR",
+			"EDUC",
+			"IDNO",
+			"NATI",
+			"NCHI",
+			"NMR",
+			"OCCU",
+			"PROP",
+			"RELI",
+			"RESI",
+			"SSN",
+			"TITL"])
+	}
+	
+	"DETAIL": {
+		"_type": "evt_detail"
+	}
 };
 
 var schema = {
    "individual": individual,
    "multimedia": multimedia,
+   "individualAttr": individualAttr,
    "name": name,
    "xref": xref,
    "date": date,
