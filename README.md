@@ -69,3 +69,9 @@ Returns a function that tests whether or not the field value is present in arr.
 
 ###JSchema.regex(re):
 Returns a function that checks whether a given field matches a given regex.
+
+###JSchema.notEmpty
+Returns a function that checks whether a given string field is not empty.
+
+###JSchema.inRange(min, max)
+Returns a function that checks whether a given field is within the given range
