@@ -80,7 +80,7 @@ var individual = {
    "INDATT": {
 	  "_type": "individualAttr",
 	  "_singular": false
-   }
+   },
 
    "SEX": {
       "_type": "string",
@@ -116,7 +116,7 @@ var multimedia = {
 	
 	"TITL": {
 		"_type": "string"
-	}
+	},
 	
 	"FILE": {
 		"_type": "fileRef",
@@ -131,7 +131,7 @@ var individualAttr = {
 	
 	"ATTR": {
 		"_type": "string",
-		"_required": true
+		"_required": true,
 		"_validate": JSchema.isIn([
 			"CAST", 
 			"DSCR",
@@ -146,7 +146,7 @@ var individualAttr = {
 			"RESI",
 			"SSN",
 			"TITL"])
-	}
+	},
 	
 	"DETAIL": {
 		"_type": "evt_detail"
@@ -160,7 +160,7 @@ var schema = {
    "name": name,
    "xref": xref,
    "date": date,
-   "fileRef": fileRef
+   "fileRef": fileRef,
    "time": time,
    "chan": chan
 };
