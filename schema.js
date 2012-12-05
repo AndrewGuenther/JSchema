@@ -32,6 +32,12 @@ JSchema.regex = function(re) {
    };
 };
 
+JSchema.notEmpty = function() {
+    return function(str) {
+        return str.length > 0;
+    };
+};
+
 JSchema._validate = function _validate(desc, schema, obj) {
 //   print("Validate:")
 //   print(JSON.stringify(schema))
