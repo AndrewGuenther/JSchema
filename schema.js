@@ -95,11 +95,11 @@ JSchema._validate = function _validate(desc, schema, obj) {
          }
 
           if ("_validate" in schema) {
-            if (!schema._validate(obj)) {
+            if (!eval(schema._validate)(obj)) {
                throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
             }
             if ("_normalize" in schema) {
-               obj = schema._normalize(obj);
+               obj = eval(schema._normalize)(obj);
             }
          }
 

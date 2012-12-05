@@ -1,6 +1,6 @@
 var isin = {
    "_type": "number",
-   "_validate": JSchema.isIn([1, 2])
+   "_validate": 'JSchema.isIn([1, 2])'
 }
 
 var schema = {

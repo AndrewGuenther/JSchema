@@ -1,6 +1,4 @@
-function isCow(str) {
-   return str == "cow";
-}
+var isCow = 'function (str) { return str == "cow"; }'
 
 var cow = {
    "_type": "string",

@@ -1,6 +1,6 @@
 var exact = {
    "_type": "string",
-   "_validate": JSchema.regex("^.{5}$")
+   "_validate": 'JSchema.regex("^.{5}$")'
 }
 
 var schema = {
