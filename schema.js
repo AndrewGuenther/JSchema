@@ -77,8 +77,8 @@ JSchema._validate = function _validate(desc, schema, obj) {
       }
 
       schema._singular = true;
-      obj.forEach(function(elem) {
-         _validate(desc, schema, elem);
+      obj.forEach(function(elem, idx) {
+         obj[idx] = _validate(desc, schema, elem);
       });
 
       return obj;

@@ -6,7 +6,7 @@ tests.forEach(function(elem) {
 
    try {
       obj = s.validate(elem.data, elem.type);
-      if (("validate" in elem) && (obj != elem.validate)) {
+      if (("validate" in elem) && (JSON.stringify(obj) != JSON.stringify(elem.validate))) {
          throw new JSchema.JSchemaError(JSON.stringify(obj)+" != "+JSON.stringify(elem.validate));
       } else {
          success = true;
