@@ -84,59 +84,28 @@ JSchema._validate = function _validate(desc, schema, obj) {
       return obj;
    }
 
-   // Validate number
-   if (schema._type == "number") {
-      if (typeof obj != "number") {
-         throw new JSchema.JSchemaError(JSON.stringify(obj) + " is not of type number!");
-      }
+   //Validate primatives
+   var primatives = ["number", "boolean", "string"];
+   for (var i = 0; i < primatives.length; i++) {
+      var elem = primatives[i];
 
-      if (schema._validate) {
-         if (!schema._validate(obj)) {
-            throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
+      if (schema._type == elem) {
+         if (typeof obj != elem) {
+            throw new JSchema.JSchemaError(JSON.stringify(obj) + " is not of type " + elem);
          }
-         if ("_normalize" in schema) {
-            obj = schema._normalize(obj);
-         }
-      }
 
-      return obj;
+          if ("_validate" in schema) {
+            if (!schema._validate(obj)) {
+               throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
+            }
+            if ("_normalize" in schema) {
+               obj = schema._normalize(obj);
+            }
+         }
+
+         return obj;
+      }
    }
-
-   // Validate boolean
-   if (schema._type == "boolean") {
-      if (typeof obj != "boolean") {
-         throw new JSchema.JSchemaError(JSON.stringify(obj) + " is not of type boolean!");
-      }
-
-      if (schema._validate) {
-         if (!schema._validate(obj)) {
-            throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
-         }
-         if ("_normalize" in schema) {
-            obj = schema._normalize(obj);
-         }
-      }
- 
-      return obj;
-   }
- 
-   // Validate string
-   if (schema._type == "string") {
-      if (typeof obj != "string") {
-         throw new JSchema.JSchemaError(JSON.stringify(obj) + " is not of type string!");
-      }
-
-      if (schema._validate) {
-         if (!schema._validate(obj)) {
-            throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
-         }
-         if ("_normalize" in schema) {
-            obj = schema._normalize(obj);
-         }
-      }
- 
-      return obj;
-   } 
 
    // Validate object
    if (schema._type == "object") {
