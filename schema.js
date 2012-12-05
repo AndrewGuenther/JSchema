@@ -32,10 +32,15 @@ JSchema.regex = function(re) {
    };
 };
 
-JSchema.notEmpty = function() {
-    return function(str) {
-        return str.length > 0;
-    };
+JSchema.notEmpty = function(str) {
+    return str.length > 0;
+};
+
+//Inclusive
+JSchema.inRange = function(min, max) {
+   return function(val) {
+       return (val >= min && val <= max);
+   };
 };
 
 JSchema._validate = function _validate(desc, schema, obj) {
