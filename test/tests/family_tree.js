@@ -116,6 +116,7 @@ var multimedia = {
 
 var schema = {
    "individual": individual,
+   "multimedia": multimedia,
    "name": name,
    "xref": xref,
    "date": date,
