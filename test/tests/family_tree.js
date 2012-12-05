@@ -42,6 +42,11 @@ var date = {
 //   "_validate": Schema.date("dd mon yyyy")
 };
 
+var fileRef = {
+	"_type": "string"
+	//Validate the file URL exists?
+}
+
 var chan = {
    "_type": "object",
 
@@ -78,7 +83,6 @@ var individual = {
       "_validate": JSchema.isIn(["M", "F"])
    },
 
-
    "ASSOC": {
       "_type": "xref",
       "_singular": false
@@ -91,11 +95,31 @@ var individual = {
    }
 };
 
+var multimedia = {
+	"_type": "object",
+	
+	"FORM": {
+		"_type": "string",
+		"_required": true,
+		"_validate": JSchema.isIn(["bmp", "gif", "jpeg", "ole", "pcx", "tiff", "wav"])
+	},
+	
+	"TITL": {
+		"_type": "string"
+	}
+	
+	"FILE": {
+		"_type": "fileRef",
+		"_required": true
+	}
+};
+
 var schema = {
    "individual": individual,
    "name": name,
    "xref": xref,
    "date": date,
+   "fileRef": fileRef
    "time": time,
    "chan": chan
 };
