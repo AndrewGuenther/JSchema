@@ -1,5 +1,6 @@
 var name = {
    "_type": "object",
+   "_doc": "The name of a given individual",
    
    "NAME": {
       "_type": "string",
@@ -21,6 +22,7 @@ var name = {
 
 var xref = {
    "_type": "object",
+   "_doc": "A reference to the record of another individual.",
 
    "REF": {
       "_type": "string",
@@ -28,27 +30,32 @@ var xref = {
    },
 
    "RELN": {
+      "_doc": "Describes the nature of the relationship",
       "_type": "string"
    }
 };
 
 var time = {
-   "_type": "string"//,
+   "_type": "string",
+   "_doc": "A string representing a time."
 //   "_validate": Schema.date("hh:mm:ss?.fs?")
 };
 
 var date = {
-   "_type": "string"//,
+   "_type": "string",
+   "_doc": "A string representing a date."
 //   "_validate": Schema.date("dd mon yyyy")
 };
 
 var fileRef = {
-	"_type": "string"
+	"_type": "string",
+   "_doc": "A reference to a file."
 	//Validate the file URL exists?
 }
 
 var chan = {
    "_type": "object",
+   "_doc": "When the record was last changed.",
 
    "DATE": {
       "_type": "date",
@@ -74,6 +81,7 @@ var phone = {
 
 var address = {
     "_type" : "object",
+    "_doc": "The address of the given individual.",
 
     "ADDR" : {
         "_type" : "string"
@@ -158,6 +166,7 @@ var evt = {
 
 var individual = {
    "_type": "object",
+   "_doc": "A document representing a description of a person.",
 
    "NAME": {
       "_type": "name",
@@ -247,6 +256,7 @@ var individualAttr = {
 };
 
 var schema = {
+   "_name": "Family Tree",
    "individual": individual,
    "multimedia": multimedia,
    "individualAttr": individualAttr,
@@ -255,7 +265,9 @@ var schema = {
    "date": date,
    "fileRef": fileRef,
    "time": time,
-   "chan": chan
+   "chan": chan,
+   "evt": evt,
+   "evt_detail": evt_detail
 };
 
 var tests = [{
