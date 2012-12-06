@@ -58,6 +58,99 @@ var chan = {
    }
 };
 
+var place = {
+    "_type" : "string",
+    "_required" : true
+};
+
+var phone = {
+    "_type" : "string"
+};
+
+var address = {
+    "_type" : "object",
+
+    "ADDR" : {
+        "_type" : "string"
+    },
+    "CONT" : {
+        "_type" : "string",
+        "_singular" : true
+    },
+    "ADR1" : {
+        "_type" : "string"
+    },
+    "ADR2" : {
+        "_type" : "string"
+    },
+    "CITY" : {
+        "_type" : "string"
+    },
+    "STAE" : {
+        "_type" : "string"
+    },
+    "POST" : {
+        "_type" : "number",
+        "_validate" : JSchema.inRange(0, 99999)
+    },
+    "CTRY" : {
+        "_type" : "string"
+    },
+    "PHON0" : {
+        "_type" : "phone"
+    },
+    "PHON1" : {
+        "_type" : "phone"
+    },
+    "PHON2" : {
+        "_type" : "phone"
+    }
+};
+
+var evt_detail = {
+    "_type" : "object",
+
+    "TYPE" : {
+        "_type" : "string"
+    },
+    "DATE" : {
+        "_type" : "date"
+    },
+    "PLAC" : {
+        "_type" : "place"
+    },
+    "ADDR" : {
+        "_type" : "address"
+    },
+    "AGE" : {
+        "_type" : "number"
+    },
+    "AGNC" : {
+        "_type" : "string"
+    },
+    "CAUSE" : {
+        "_type" : "string"
+    },
+    "MULT" : {
+        "_type" : "multimedia",
+        "_singular" : false
+    }
+};
+
+var evt = {
+    "_type" : "object",
+
+    "EVENT" : {
+        "_type" : "string",
+        "_required" : true,
+        "_validate" : JSchema.isIn(["BIRT", "CHR", "DEAT", "BURI", "CREM", "BAPM", "BARM", "BASM", "BLES", "CHRA", "CONF", "FCOM", "ORDN", "NATU", "EMIG", "IMMI", "CENS", "PROB", "WILL", "GRAD", "RETI", "EVEN"])
+    },
+
+    "DETAIL" : {
+        "_type" : "evt_detail"
+    }
+};
+
 var individual = {
    "_type": "object",
 

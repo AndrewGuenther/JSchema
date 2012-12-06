@@ -43,6 +43,19 @@ JSchema.inRange = function(min, max) {
    };
 };
 
+//Currently not supported
+//JSchema.arraySize = function(size) {
+    //return function(arr) {
+        //return arr.length == size;
+    //};
+//};
+
+//JSchema.maxArraySize = function(max) {
+    //return function(arr) {
+        //return arr.length <= size;
+    //};
+//};
+
 JSchema._validate = function _validate(desc, schema, obj) {
 //   print("Validate:")
 //   print(JSON.stringify(schema))
