@@ -67,7 +67,7 @@ JSchema._validate = function _validate(desc, schema, obj) {
 
    // If the item type is "undef" then ignore it
    if (schema._type == "undef") {
-      return;
+      return obj;
    }
 
    // If the item is an array, iterate over it and validate each element
@@ -81,7 +81,7 @@ JSchema._validate = function _validate(desc, schema, obj) {
          _validate(desc, schema, elem);
       });
 
-      return;
+      return obj;
    }
 
    // Validate number
@@ -94,9 +94,12 @@ JSchema._validate = function _validate(desc, schema, obj) {
          if (!schema._validate(obj)) {
             throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
          }
+         if ("_normalize" in schema) {
+            obj = schema._normalize(obj);
+         }
       }
 
-      return;
+      return obj;
    }
 
    // Validate boolean
@@ -109,9 +112,12 @@ JSchema._validate = function _validate(desc, schema, obj) {
          if (!schema._validate(obj)) {
             throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
          }
+         if ("_normalize" in schema) {
+            obj = schema._normalize(obj);
+         }
       }
  
-      return;
+      return obj;
    }
  
    // Validate string
@@ -124,9 +130,12 @@ JSchema._validate = function _validate(desc, schema, obj) {
          if (!schema._validate(obj)) {
             throw new JSchema.JSchemaError(JSON.stringify(obj) + " is invalid for field");
          }
+         if ("_normalize" in schema) {
+            obj = schema._normalize(obj);
+         }
       }
  
-      return;
+      return obj;
    } 
 
    // Validate object
@@ -157,7 +166,7 @@ JSchema._validate = function _validate(desc, schema, obj) {
          }
       }
 
-      return;
+      return obj;
    }
 
    // Validate custom type
@@ -168,7 +177,7 @@ JSchema._validate = function _validate(desc, schema, obj) {
    if ("_singular" in schema) { subSchema._singular = schema._singular; }
    if ("_validate" in schema) { subSchema._validate = schema._validate; }
 
-   _validate(desc, subSchema, obj);
+   return _validate(desc, subSchema, obj);
 };
 
 JSchema.validate = function (schema, obj, type) {
@@ -176,9 +185,9 @@ JSchema.validate = function (schema, obj, type) {
       throw JSchema.JSchemaError("Type " + type + " is not supported by the schema.");
    }
 
-   JSchema._validate(schema, schema[type], obj);
+   return JSchema._validate(schema, schema[type], obj);
 };
 
 JSchema.prototype.validate = function(obj, type) {
-   JSchema.validate(this.schema, obj, type);
+   return JSchema.validate(this.schema, obj, type);
 };

@@ -5,8 +5,12 @@ tests.forEach(function(elem) {
    success = false;
 
    try {
-      s.validate(elem.data, elem.type);
-      success = true;
+      obj = s.validate(elem.data, elem.type);
+      if (("validate" in elem) && (obj != elem.validate)) {
+         throw new JSchema.JSchemaError(JSON.stringify(obj)+" != "+JSON.stringify(elem.validate));
+      } else {
+         success = true;
+      }
    } catch (err if err instanceof JSchema.JSchemaError) {
       if ("fail" in elem && elem.fail) {
          success = true;
