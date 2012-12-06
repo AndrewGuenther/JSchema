@@ -1,14 +1,18 @@
 /**
  * Mongo stored procedure that performs database migrations.
  */
-var migrate = function(collection, field, value) {
-   col = db[collection];
+var migrate = function(migration) {
+   var col = db[migration.collection];
 
-   var tuples = col.find();
+   // Update the schema.
+   db.schema.update(
+      {_id: migration.collection},
+      {$set: migration.update}
+   );
 
-   tuples.forEach(function(tuple) {
-      tuple[field] = value;
-      col.save(tuple);
+   // Update all existing documents.
+   col.find().forEach(function(doc) {
+      col.save(migration.updateFunction(doc));
    });
 }
 
