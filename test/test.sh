@@ -1,5 +1,5 @@
-cat ../schema.js $1 test.js > .test.tmp
+#!/bin/bash
 
-rhino .test.tmp
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-rm .test.tmp
+rhino -f $DIR/../schema.js -f $1 -f test.js
