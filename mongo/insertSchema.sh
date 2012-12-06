@@ -13,6 +13,6 @@ cat $1 >> .insert.tmp
 echo $insertion >> .insert.tmp
 
 rm schemaDoc.html 2> /dev/null 
-mongo $2 .insert.tmp ../docgen.js | grep '^<' >> schemaDoc.html 
+mongo $2 .insert.tmp ../doc/docgen.js | grep '^<' >> schemaDoc.html 
 
 rm .insert.tmp

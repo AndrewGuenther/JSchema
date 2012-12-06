@@ -82,7 +82,7 @@ To insert a schema use the insertSchema shell script located in the mongo direct
 ```
 insertSchema.sh test/family_tree.js genealogy data
 ```
-This inserts the family_tree schema (must contain a globally defined 'schema' object) into the 'genealogy' database in the 'data' collection. The script also creates a schemaDoc.html file in the local directory.
+This inserts the family_tree schema (must contain a globally defined 'schema' object) into the 'genealogy' database for the 'data' collection. The script also creates a schemaDoc.html file in the local directory.
 
 ##SchemaDoc Generation
 HTML Documentation of a schema can be generated using docgen.js
