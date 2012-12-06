@@ -76,10 +76,18 @@ Returns a function that checks whether a given string field is not empty.
 ###JSchema.inRange(min, max)
 Returns a function that checks whether a given field is within the given range
 
+##Schema Generation
+To insert a schema use the insertSchema shell script located in the mongo directory.
+
+```
+insertSchema.sh test/family_tree.js genealogy data
+```
+This inserts the family_tree schema (must contain a globally defined 'schema' object) into the 'genealogy' database in the 'data' collection. The script also creates a schemaDoc.html file in the local directory.
+
 ##SchemaDoc Generation
 HTML Documentation of a schema can be generated using docgen.js
 
 ```
-mongo mySchema.js docgen.js > mySchemaDoc.html
+mongo mySchema.js docgen.js | grep '^<' >> mySchemaDoc.html
 ```
-This will generate a html file mySchemaDoc.html with the given schema.
+This will generate a html file mySchemaDoc.html with the given schema. [The grep removes 'loading' printouts]

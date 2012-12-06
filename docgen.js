@@ -45,7 +45,7 @@ function generateDocHTML(schemas, name) {
         html += generateSchemaHTML(schema, schemas[schema]);
     }
     html += "</html>"
-    print("@"+name+"Doc.html:"+html);
+    print(html);
 }
 
 if (typeof schema != 'undefined') {

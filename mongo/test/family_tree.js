@@ -91,8 +91,7 @@ var individual = {
    }
 };
 
-var schema = {
-   "_id": "data",
+schema = {
    "individual": individual,
    "name": name,
    "xref": xref,
@@ -101,4 +100,3 @@ var schema = {
    "chan": chan
 };
 
-db.schema.save(schema);
