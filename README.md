@@ -80,6 +80,6 @@ Returns a function that checks whether a given field is within the given range
 HTML Documentation of a schema can be generated using docgen.js
 
 ```
-node docjen.js mySchema.js
+mongo mySchema.js docgen.js > mySchemaDoc.html
 ```
 This will generate a html file mySchemaDoc.html with the given schema.
