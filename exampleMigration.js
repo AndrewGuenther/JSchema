@@ -3,6 +3,8 @@ var migration = {
 
    "collection": "migrateTest",
 
+   "dataType" : "person",
+
    "update": {
       "person.age": {
          "_type": "number",
@@ -14,8 +16,8 @@ var migration = {
    },
 
    "updateFunction": function(person) {
-      // Set default age to 1.
-      person.age = 1;
+      // Set default age to twice the length of their name.
+      person.age = person.name.length * 2;
 
       return person;
    }

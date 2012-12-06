@@ -12,7 +12,10 @@ var migrate = function(migration) {
 
    // Update all existing documents.
    col.find().forEach(function(doc) {
-      col.save(migration.updateFunction(doc));
+      var updatedVal = migration.updateFunction(doc);
+
+      db.eval("v_insert('" + migration.collection +
+       "', " + tojson(updatedVal) + ", '" + migration.dataType + "')");
    });
 }
 
