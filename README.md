@@ -75,3 +75,11 @@ Returns a function that checks whether a given string field is not empty.
 
 ###JSchema.inRange(min, max)
 Returns a function that checks whether a given field is within the given range
+
+##SchemaDoc Generation
+HTML Documentation of a schema can be generated using docgen.js
+
+```
+node docjen.js mySchema.js
+```
+This will generate a html file mySchemaDoc.html with the given schema.
