@@ -1,9 +1,9 @@
-docHeader = "<head></head>"
+docHeader = '<head><style type="text/css">h3 {border-style: solid; padding:4px;}</style></head>'
 
 function getProperties(schema) {
     var props = ''
     if (schema['_required']) props += '[Required]';
-    if (schema['_singular']) props += '[Singular]';
+    if (schema['_singular'] != 'undefined' && schema['_singular'] == false) props += '[Not Singular]';
     if (schema['_strict']) props += '[Strict]';
     return props;
 }
@@ -37,6 +37,7 @@ function generateSchemaHTML(type, schema) {
 
 function generateDocHTML(name, schemas) {
     var html = "<html>";
+    html += "<h1>"+name+"</h1>";
     html += docHeader;
     for (schema in schemas) {
         if (schema[0] != '_')
