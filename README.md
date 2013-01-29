@@ -33,11 +33,29 @@ Here we define the schema for a person and a family and then initialize a new JS
 attempt to validate ```obj``` as a ```family``` object.
 
 #Schema Syntax
+```javascript
+var type = {
+   _doc: string
+   _type: "boolean" | "number" | "string" | "object" | "undef" | string,
+   _required: true | (false),
+   _singular: (true) | false,
+   _strict: true | (false),
+   _validate: function () {},
+   _normalize: function () {}
+}
+
+var schema = {
+   string: type
+}
+```
 ##Schema object
 The schema object contains the names of every possible custom type. Each field is the string
 which will represent the given type and the value is the schema object which represents it.
 
 ##Meta-fields
+###_doc:
+A string which will be used to describe the value in the generated documentation.
+
 ###_type:
 Represents the field type. This field may contain any standard JS types (```number```,
 ```boolean```, ```string```, ```object```)
@@ -61,6 +79,9 @@ the schema.
 ###_validate:
 Takes a boolean function. All values are checked against this function for validity.
 
+###_normalize:
+All validated values will be put through this function to be normalized.
+
 ##Validation functions
 A series of validation functions have already been defined to help you quickly define your schema.
 
@@ -70,24 +91,15 @@ Returns a function that tests whether or not the field value is present in arr.
 ###JSchema.regex(re):
 Returns a function that checks whether a given field matches a given regex.
 
-###JSchema.notEmpty
+###JSchema.notEmpty()
 Returns a function that checks whether a given string field is not empty.
 
 ###JSchema.inRange(min, max)
 Returns a function that checks whether a given field is within the given range
 
-##Schema Generation
-To insert a schema use the insertSchema shell script located in the mongo directory.
-
-```
-insertSchema.sh test/family_tree.js genealogy data
-```
-This inserts the family_tree schema (must contain a globally defined 'schema' object) into the 'genealogy' database in the 'data' collection. The script also creates a schemaDoc.html file in the local directory.
-
 ##SchemaDoc Generation
-HTML Documentation of a schema can be generated using docgen.js
+HTML Documentation of a schema can be generated using a generation script.
 
 ```
-mongo mySchema.js docgen.js | grep '^<' >> mySchemaDoc.html
+doc/generate.sh [schema-file]
 ```
-This will generate a html file mySchemaDoc.html with the given schema. [The grep removes 'loading' printouts]
